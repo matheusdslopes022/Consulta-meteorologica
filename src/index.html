@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta meteorológica</title>
     <link rel="stylesheet" href="style.css">
+    <script src="fundo.js" defer></script>
     <script src="script.js" defer></script>
 </head>
 
 <body>
+    <canvas id="fundo-clima"></canvas>
+
     <header class="header">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon-sol" viewBox="0 0 96 96" fill="none"
             stroke="rgb(253, 230, 138)" stroke-width="5" stroke-linecap="round" aria-hidden="true">
@@ -20,15 +23,22 @@
         <span>Dados: OPEN-METEO</span>
     </header>
 
-    <section id="pesquisar">
-        <div class="vidro">
-            <p>Pesquisar cidade</p>
-            <form>
-                <input type="text" id="cidade" placeholder="Porto Alegre">
-                <button id="button">Buscar</button>
-            </form>
-        </div>
-    </section>
+    <div class="topo">
+        <section id="pesquisar">
+            <div class="campo-pesquisa">
+                <p>Pesquisar cidade</p>
+                <form>
+                    <input type="text" id="cidade" placeholder="Porto Alegre">
+                    <button id="button">Buscar</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="favoritos-secao">
+            <p>Nenhuma cidade favoritada.</p>
+            <div id="lista-favoritos"></div>
+        </section>
+    </div>
 
     <section class="resultado">
         <p id="mensagem"></p>
@@ -44,7 +54,7 @@
     </section>
 
 
-   
+
 
 
 </body>

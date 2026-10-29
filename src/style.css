@@ -17,6 +17,16 @@ body {
     background-attachment: fixed;
     padding-left: 200px;
     padding-right: 200px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+#fundo-clima {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
 }
 
 .header {
@@ -40,14 +50,32 @@ body {
 
 }
 
-.vidro {
+.topo{
+    display: flex;
+    gap: 200px;
+}
+
+.campo-pesquisa {
     background: rgba(255, 255, 255, 0.14);
     border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 20px;
     padding: 20px 24px;
-    margin-left: 25px;
+    margin-left: 50px;
     height: 120px;
     width: 900px;
+}
+
+
+.favoritos-secao{
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 20px;
+    padding: 20px;
+    width: 300px;
+}
+
+.favoritos-secao p{
+    text-align: center;
 }
 
 form {
@@ -83,10 +111,10 @@ form {
     width: 900px;
     background-color: rgba(255, 255, 255, 0.10);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 15px;   
+    border-radius: 15px;
     padding: 20px;
     margin-top: 20px;
-    margin-left: 25px;
+    margin-left: 50px;
 }
 
 .resultado p {
@@ -125,7 +153,7 @@ form {
     width: 900px;
 
     margin-top: 20px;
-    margin-left: 25px;
+    margin-left: 50px;
     padding: 15px;
     border-radius: 12px;
     background-color: rgba(255, 255, 255, 0.10);
@@ -133,7 +161,7 @@ form {
 }
 
 
-.teste{
+.teste {
     display: flex;
     gap: 20px;
     padding: 10px;
@@ -141,9 +169,9 @@ form {
 
 .detalhes-clima {
     display: flex;
-    gap: 15px; 
+    gap: 15px;
     align-items: baseline;
-    
+
 }
 
 .secao-mapa {
@@ -154,7 +182,7 @@ form {
     display: none;
     width: 900px;
     margin-top: 20px;
-    margin-left: 25px;
+    margin-left: 50px;
     padding: 20px;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.14);
@@ -214,4 +242,56 @@ form {
 
 .credito-mapa a {
     color: rgb(253, 230, 138);
+}
+
+
+
+.vidro,
+.resultado,
+#clima,
+#cartao-mapa {
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    backdrop-filter: blur(22px) saturate(140%);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.informacoes h1 {
+    font-size: 72px;
+    font-weight: 200;
+    line-height: 1;
+    margin: 6px 0;
+}
+
+.icone-clima {
+    font-size: 64px;
+    line-height: 1;
+}
+
+.detalhe p {
+    font-size: 12px;
+    letter-spacing: 1px;
+    opacity: 0.75;
+}
+
+.detalhe h2 {
+    font-weight: 400;
+}
+
+.botao-favoritos {
+    margin: 4px 10px 6px;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 14px;
+    color: white;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.botao-favoritos:hover {
+    color: rgb(253, 230, 138);
+    border-color: rgb(253, 230, 138);
 }

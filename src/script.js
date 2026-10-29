@@ -22,9 +22,27 @@ function descricaoClima(codigo) {
         82: "Pancadas de chuva violentas",
         95: "Tempestade",
         96: "Tempestade com granizo leve",
-        99: "Tempestade com granizo forte"
+        99: "Tempestade com granizo forte",
+        56: "Garoa congelante leve",
+        57: "Garoa congelante intensa",
+        66: "Chuva congelante leve",
+        67: "Chuva congelante forte",
+        77: "Grãos de neve",
+        85: "Pancadas de neve leves",
+        86: "Pancadas de neve fortes"
     };
     return mapa[codigo] || "Condição desconhecida";
+}
+
+function iconeClima(codigo, ehDia) {
+    if (codigo === 0 || codigo === 1) return ehDia ? "☀️" : "🌙";
+    if (codigo === 2) return ehDia ? "⛅" : "☁️";
+    if (codigo === 3) return "☁️";
+    if (codigo === 45 || codigo === 48) return "🌫️";
+    if ((codigo >= 51 && codigo <= 67) || (codigo >= 80 && codigo <= 82)) return "🌧️";
+    if ((codigo >= 71 && codigo <= 77) || codigo === 85 || codigo === 86) return "❄️";
+    if (codigo >= 95) return "⛈️";
+    return "☁️";
 }
 
 const CAMADAS_MAPA = [
@@ -160,7 +178,7 @@ botao_buscar.addEventListener("click", (evento) => {
                     const parametrosClima = new URLSearchParams({
                         latitude: local.latitude,
                         longitude: local.longitude,
-                        current: "temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m",
+                        current: "temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day",
                         timezone: "auto"
                     });
 
@@ -184,7 +202,7 @@ botao_buscar.addEventListener("click", (evento) => {
 
                                     <div class="teste">
 
-                                        <div class="icone-clima">☀</div>
+                                        <div class="icone-clima">${iconeClima(atual.weather_code, atual.is_day === 1)}</div>
 
                                         <div class="clima-principal">
                                             <div class="informacoes">
@@ -218,6 +236,14 @@ botao_buscar.addEventListener("click", (evento) => {
                                 </div>
                             `;
                             clima.style.display = "grid";
+
+                            // muda o fundo animado conforme o clima
+                            // (se o fundo.js não carregar, o resto do site continua funcionando)
+                            if (typeof definirFundo === "function") {
+                                definirFundo(atual.weather_code, atual.is_day === 1);
+                            } else {
+                                console.warn("fundo.js não foi carregado: confira se o arquivo está na mesma pasta do index.html");
+                            }
 
                             // Card novo só para o mapa
                             cartaoMapa.innerHTML = `
