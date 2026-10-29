@@ -1,5 +1,7 @@
 const botao_buscar = document.getElementById("button");
 
+
+
 function descricaoClima(codigo) {
     const mapa = {
         0: "Céu limpo",
@@ -107,6 +109,7 @@ function ligarAbasMapa(latitude, longitude) {
 
 botao_buscar.addEventListener("click", (evento) => {
     evento.preventDefault();
+    
     const cidade = document.getElementById("cidade").value.trim();
     const resultado = document.getElementById("resultado");
     const clima = document.getElementById("clima");
@@ -236,6 +239,11 @@ botao_buscar.addEventListener("click", (evento) => {
                                 </div>
                             `;
                             clima.style.display = "grid";
+                            const botao_favorito = document.querySelectorAll(".botao-favoritos");
+
+                            botao_favorito.addEventListener("click", ()=>{
+                                alert("dwq")
+                            })
 
                             // muda o fundo animado conforme o clima
                             // (se o fundo.js não carregar, o resto do site continua funcionando)
@@ -256,6 +264,10 @@ botao_buscar.addEventListener("click", (evento) => {
                             ligarAbasMapa(local.latitude, local.longitude);
 
                             console.log("Dados do clima:", dados);
+
+
+
+                            
                         })
                         .catch(function (erro) {
                             clima.style.display = "block";
