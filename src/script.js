@@ -27,6 +27,65 @@ function descricaoClima(codigo) {
     return mapa[codigo] || "Condição desconhecida";
 }
 
+const CAMADAS_MAPA = [
+    ["wind", "Vento"],
+    ["rain", "Chuva"],
+    ["temp", "Temperatura"],
+    ["clouds", "Nuvens"],
+    ["pressure", "Pressão"],
+];
+
+// CORREÇÃO 1: variável que estava sendo usada sem ser declarada
+let camadaAtual = "wind";
+
+function urlMapa(latitude, longitude, camada) {
+    return `https://embed.windy.com/embed2.html` +
+        `?lat=${latitude}` +
+        `&lon=${longitude}` +
+        `&zoom=7` +
+        `&level=surface` +
+        `&overlay=${camada}` +
+        `&product=ecmwf` +
+        `&menu=` +
+        `&message=true` +
+        `&marker=true` +
+        `&calendar=now` +
+        `&type=map` +
+        `&location=coordinates` +
+        `&metricWind=${encodeURIComponent("km/h")}` +
+        `&metricTemp=${encodeURIComponent("°C")}`;
+}
+
+function htmlMapa(latitude, longitude) {
+    const abas = CAMADAS_MAPA.map(([valor, nome]) => `
+        <button type="button" data-camada="${valor}" class="${valor === camadaAtual ? "ativa" : ""}">${nome}</button>
+    `).join("");
+
+    return `
+        <div class="abas-mapa">${abas}</div>
+        <iframe id="mapa" title="Mapa do tempo" loading="lazy"
+            src="${urlMapa(latitude, longitude, camadaAtual)}"></iframe>
+        <p class="credito-mapa">Mapas: <a href="https://www.windy.com" target="_blank" rel="noopener">Windy.com</a></p>
+    `;
+}
+
+function ligarAbasMapa(latitude, longitude) {
+    const abas = document.querySelector(".abas-mapa");
+
+    abas.addEventListener("click", evento => {
+        const botao = evento.target.closest("button");
+        if (!botao) return;
+
+        camadaAtual = botao.dataset.camada;
+
+        abas.querySelectorAll("button").forEach(b => {
+            b.classList.toggle("ativa", b === botao);
+        });
+
+        document.getElementById("mapa").src = urlMapa(latitude, longitude, camadaAtual);
+    });
+}
+
 
 botao_buscar.addEventListener("click", (evento) => {
     evento.preventDefault();
@@ -34,8 +93,10 @@ botao_buscar.addEventListener("click", (evento) => {
     const resultado = document.getElementById("resultado");
     const clima = document.getElementById("clima");
     const mensagem = document.getElementById("mensagem");
+    const cartaoMapa = document.getElementById("cartao-mapa");
     document.querySelector(".resultado").style.display = "none";
-    clima.style.display = "none"; 
+    clima.style.display = "none";
+    cartaoMapa.style.display = "none";
 
     if (cidade === "") {
         alert("Campo vazio, Digite novamente");
@@ -86,12 +147,15 @@ botao_buscar.addEventListener("click", (evento) => {
 
                 item.addEventListener("click", () => {
                     document.querySelector(".clima").style.display = "block";
-                    document.querySelectorAll(".item-cidade").forEach(function (outroItem) { 
+                    document.querySelectorAll(".item-cidade").forEach(function (outroItem) {
                         outroItem.classList.remove("selecionada");
                     });
 
                     item.classList.add("selecionada");
                     console.log("Cidade selecionada:", local);
+
+                    // cada nova cidade começa na camada Vento
+                    camadaAtual = "wind";
 
                     const parametrosClima = new URLSearchParams({
                         latitude: local.latitude,
@@ -101,6 +165,7 @@ botao_buscar.addEventListener("click", (evento) => {
                     });
 
                     clima.style.display = "none";
+                    cartaoMapa.style.display = "none";
                     clima.textContent = "Carregando clima...";
 
                     fetch(`https://api.open-meteo.com/v1/forecast?${parametrosClima}`)
@@ -116,32 +181,34 @@ botao_buscar.addEventListener("click", (evento) => {
 
                             clima.innerHTML = `
                                 <div class="geral">
-                                    <div class="icon">*</div>
 
-                                    <div class="clima-principal">
+                                    <div class="teste">
+
                                         <div class="icone-clima">☀</div>
 
-                                        <div class="informacoes">
-                                            <p>${local.name}, ${local.country}</p>
-                                            <h1>${Math.round(atual.temperature_2m)}°C</h1>
-                                            <p>${descricaoClima(atual.weather_code)}</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="detalhes-clima">
-                                        <div class="detalhe">
-                                            <p>SENSAÇÃO</p>
-                                            <h2>${Math.round(atual.apparent_temperature)}°C</h2>
+                                        <div class="clima-principal">
+                                            <div class="informacoes">
+                                                <p>${local.name}, ${local.country}</p>
+                                                <h1>${Math.round(atual.temperature_2m)}°C</h1>
+                                                <p>${descricaoClima(atual.weather_code)}</p>
+                                            </div>
                                         </div>
 
-                                        <div class="detalhe">
-                                            <p>UMIDADE</p>
-                                            <h2>${atual.relative_humidity_2m}%</h2>
-                                        </div>
+                                        <div class="detalhes-clima">
+                                            <div class="detalhe">
+                                                <p>SENSAÇÃO</p>
+                                                <h2>${Math.round(atual.apparent_temperature)}°C</h2>
+                                            </div>
 
-                                        <div class="detalhe">
-                                            <p>VENTO</p>
-                                            <h2>${Math.round(atual.wind_speed_10m)} km/h</h2>
+                                            <div class="detalhe">
+                                                <p>UMIDADE</p>
+                                                <h2>${atual.relative_humidity_2m}%</h2>
+                                            </div>
+
+                                            <div class="detalhe">
+                                                <p>VENTO</p>
+                                                <h2>${Math.round(atual.wind_speed_10m)} km/h</h2>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -151,6 +218,16 @@ botao_buscar.addEventListener("click", (evento) => {
                                 </div>
                             `;
                             clima.style.display = "grid";
+
+                            // Card novo só para o mapa
+                            cartaoMapa.innerHTML = `
+                                <h2 class="titulo-mapa">Mapa do tempo · ${local.name}</h2>
+                                ${htmlMapa(local.latitude, local.longitude)}
+                            `;
+                            cartaoMapa.style.display = "block";
+
+                            // ligar as abas depois que o HTML existe na página
+                            ligarAbasMapa(local.latitude, local.longitude);
 
                             console.log("Dados do clima:", dados);
                         })
