@@ -1,3 +1,4 @@
+
 * {
     margin: 0px;
     padding: 0px;
@@ -8,17 +9,24 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
     color: white;
     font-family: 'DM Sans', system-ui, sans-serif;
+
     background: linear-gradient(170deg,
-            rgb(15, 53, 99) 0%,
-            rgb(29, 90, 158) 55%,
-            rgb(42, 111, 181) 100%);
+        rgb(15, 53, 99) 0%,
+        rgb(29, 90, 158) 55%,
+        rgb(42, 111, 181) 100%);
+
     background-attachment: fixed;
+
     padding-left: 200px;
     padding-right: 200px;
+
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
+
+/* FUNDO */
 
 #fundo-clima {
     position: fixed;
@@ -29,10 +37,38 @@ body {
     pointer-events: none;
 }
 
-.header {
-    display: flex;
-    padding: 20px;
+/* EFEITO DE VIDRO */
 
+.vidro,
+.campo-pesquisa,
+.favoritos-secao,
+.resultado,
+#clima,
+#cartao-mapa {
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    backdrop-filter: blur(22px) saturate(140%);
+
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* HEADER */
+
+.header {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px;
+}
+
+.titulo {
+    display: flex;
+    align-items: center;
 }
 
 .icon-sol {
@@ -44,38 +80,41 @@ body {
     padding: 5px;
 }
 
-.header span {
-    margin-left: auto;
-    padding: 20px;
+/* LADO DIREITO */
 
-}
+.lado-direito {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 
-.topo{
     display: flex;
-    gap: 200px;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
+
+.lado-direito span {
+    padding: 15px;
+}
+
+/* TOPO */
+
+.topo {
+    display: flex;
+    align-items: flex-start;
+}
+
+/* PESQUISA */
 
 .campo-pesquisa {
-    background: rgba(255, 255, 255, 0.14);
-    border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 20px;
+
     padding: 20px 24px;
+
     margin-left: 50px;
+
     height: 120px;
     width: 900px;
-}
-
-
-.favoritos-secao{
-    background: rgba(255, 255, 255, 0.14);
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    border-radius: 20px;
-    padding: 20px;
-    width: 300px;
-}
-
-.favoritos-secao p{
-    text-align: center;
 }
 
 form {
@@ -89,30 +128,81 @@ form {
 #cidade {
     width: 700px;
     height: 35px;
+
     border-radius: 10px;
     border: 0;
+
     padding-left: 15px;
 }
 
 #button {
     min-height: 38px;
     padding: 0 28px;
+
     border: 0;
     border-radius: 12px;
+
     font-weight: 700;
     cursor: pointer;
+
     color: rgb(59, 42, 0);
     background: rgb(253, 230, 138);
+
     margin-left: 15px;
 }
 
+/* FAVORITOS */
+
+.favoritos-secao {
+    width: 300px;
+    min-height: 100px;
+    max-height: 300px;
+    
+    margin-right: 100px;    
+
+    padding: 20px;
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.favoritos-secao p {
+    text-align: center;
+}
+
+#lista-favoritos {
+    padding: 10px;
+
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.item-favorito {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    width: 100%;
+
+    padding: 10px;
+    margin-bottom: 10px;
+
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 10px;
+}
+
+/* RESULTADOS */
+
 .resultado {
     display: none;
+
     width: 900px;
-    background-color: rgba(255, 255, 255, 0.10);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+
     border-radius: 15px;
+
     padding: 20px;
+
     margin-top: 20px;
     margin-left: 50px;
 }
@@ -122,44 +212,52 @@ form {
     padding-left: 10px;
 }
 
-
 .item-cidade {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     margin-bottom: 10px;
     padding: 15px 20px;
+
     background-color: rgba(255, 255, 255, 0.10);
+
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
+
     color: white;
+
     transition: background-color 0.3s ease;
 }
 
 .item-cidade:hover {
     transition: 0.3s;
+
     color: rgb(253, 230, 138);
     border: 1px solid rgb(253, 230, 138);
-    ;
 }
+
+.item-cidade.selecionada {
+    border: 1px solid rgb(253, 230, 138);
+    color: rgb(253, 230, 138);
+}
+
+/* CLIMA */
 
 .clima {
     display: none;
 }
-
-
 
 #clima {
     width: 900px;
 
     margin-top: 20px;
     margin-left: 50px;
-    padding: 15px;
-    border-radius: 12px;
-    background-color: rgba(255, 255, 255, 0.10);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
 
+    padding: 15px;
+
+    border-radius: 12px;
+}
 
 .teste {
     display: flex;
@@ -167,12 +265,51 @@ form {
     padding: 10px;
 }
 
+.informacoes h1 {
+    font-size: 72px;
+    font-weight: 200;
+    line-height: 1;
+
+    margin: 6px 0;
+}
+
+.icone-clima {
+    font-size: 64px;
+    line-height: 1;
+}
+
+.detalhe{
+    background-color: gray;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+}
+
+.detalhe p{
+    
+}
+
+.clima-principal{
+    margin-right: 100px;
+}
+
 .detalhes-clima {
     display: flex;
     gap: 15px;
     align-items: baseline;
-
 }
+
+.detalhe p {
+    font-size: 12px;
+    letter-spacing: 1px;
+    opacity: 0.75;
+}
+
+.detalhe h2 {
+    font-weight: 400;
+}
+
+/* MAPA */
 
 .secao-mapa {
     margin-bottom: 40px;
@@ -180,17 +317,20 @@ form {
 
 #cartao-mapa {
     display: none;
+
     width: 900px;
+
     margin-top: 20px;
     margin-left: 50px;
+
     padding: 20px;
+
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.14);
-    border: 1px solid rgba(255, 255, 255, 0.28);
 }
 
 .titulo-mapa {
     font-size: 18px;
+
     margin-bottom: 14px;
     padding-left: 4px;
 }
@@ -198,6 +338,7 @@ form {
 .abas-mapa {
     display: flex;
     flex-wrap: wrap;
+
     gap: 8px;
     margin-bottom: 14px;
 }
@@ -206,12 +347,17 @@ form {
     font-family: inherit;
     font-size: 14px;
     font-weight: 600;
+
     padding: 8px 16px;
+
     background: rgba(255, 255, 255, 0.10);
     color: white;
+
     border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 12px;
+
     cursor: pointer;
+
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -228,14 +374,17 @@ form {
 
 #mapa {
     display: block;
+
     width: 100%;
     height: 420px;
+
     border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 14px;
 }
 
 .credito-mapa {
     margin: 10px 0 0;
+
     font-size: 12px;
     color: rgba(255, 255, 255, 0.7);
 }
@@ -244,50 +393,21 @@ form {
     color: rgb(253, 230, 138);
 }
 
-
-
-.vidro,
-.resultado,
-#clima,
-#cartao-mapa {
-    -webkit-backdrop-filter: blur(22px) saturate(140%);
-    backdrop-filter: blur(22px) saturate(140%);
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-}
-
-.informacoes h1 {
-    font-size: 72px;
-    font-weight: 200;
-    line-height: 1;
-    margin: 6px 0;
-}
-
-.icone-clima {
-    font-size: 64px;
-    line-height: 1;
-}
-
-.detalhe p {
-    font-size: 12px;
-    letter-spacing: 1px;
-    opacity: 0.75;
-}
-
-.detalhe h2 {
-    font-weight: 400;
-}
+/* BOTÃO DE FAVORITOS */
 
 .botao-favoritos {
     margin: 4px 10px 6px;
     padding: 8px 16px;
+
     font-family: inherit;
     font-size: 14px;
+
     color: white;
     background: rgba(255, 255, 255, 0.12);
+
     border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 12px;
+
     cursor: pointer;
 }
 

@@ -1,61 +1,95 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Consulta meteorológica</title>
+
     <link rel="stylesheet" href="style.css">
+
     <script src="fundo.js" defer></script>
     <script src="script.js" defer></script>
 </head>
 
 <body>
+
     <canvas id="fundo-clima"></canvas>
 
     <header class="header">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon-sol" viewBox="0 0 96 96" fill="none"
-            stroke="rgb(253, 230, 138)" stroke-width="5" stroke-linecap="round" aria-hidden="true">
-            <circle cx="48" cy="48" r="19" />
-            <path d="M48 8v12M48 76v12M8 48h12M76 48h12M20 20l8 8M68 68l8 8M20 76l8-8M68 28l8-8" />
-        </svg>
-        <h1>Consulta meteorológica</h1>
-        <span>Dados: OPEN-METEO</span>
+
+        <div class="titulo">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon-sol"
+                viewBox="0 0 96 96" fill="none"
+                stroke="rgb(253, 230, 138)"
+                stroke-width="5"
+                stroke-linecap="round"
+                aria-hidden="true">
+
+                <circle cx="48" cy="48" r="19" />
+                <path d="M48 8v12M48 76v12M8 48h12M76 48h12M20 20l8 8M68 68l8 8M20 76l8-8M68 28l8-8" />
+
+            </svg>
+
+            <h1>Consulta meteorológica</h1>
+        </div>
+
+        <div class="lado-direito">
+
+            <span>Dados: OPEN-METEO</span>
+
+            <section class="favoritos-secao">
+
+                <p>Cidades favoritas</p>
+
+                <div id="lista-favoritos"></div>
+
+            </section>
+
+        </div>
+
     </header>
 
     <div class="topo">
+
         <section id="pesquisar">
+
             <div class="campo-pesquisa">
+
                 <p>Pesquisar cidade</p>
+
                 <form>
                     <input type="text" id="cidade" placeholder="Porto Alegre">
                     <button id="button">Buscar</button>
                 </form>
+
             </div>
+
         </section>
 
-        <section class="favoritos-secao">
-            <p>Nenhuma cidade favoritada.</p>
-            <div id="lista-favoritos"></div>
-        </section>
     </div>
 
     <section class="resultado">
+
         <p id="mensagem"></p>
+
         <div id="resultado"></div>
+
     </section>
 
     <section class="clima">
+
         <div id="clima"></div>
+
     </section>
 
     <section class="secao-mapa">
+
         <div id="cartao-mapa"></div>
+
     </section>
-
-
-
-
 
 </body>
 
