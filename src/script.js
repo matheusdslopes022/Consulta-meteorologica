@@ -218,9 +218,16 @@ function carregarClima(local) {
                         </div>
                     </div>
 
-                    <button id="favoritos" class="botao-favoritos">
+                    <div class="fav">
+                     <button id="favoritos" class="botao-favoritos">
                         ☆ Adicionar aos favoritos
                     </button>
+
+                    <div class="link">
+                        <p>Fonte: <a href="https://open-meteo.com/">Open meteo</a></p>
+                     </div>
+                    </div>
+                   
                 </div>
             `;
 
@@ -261,7 +268,7 @@ botao_buscar.addEventListener("click", (evento) => {
     const clima = document.getElementById("clima");
     const mensagem = document.getElementById("mensagem");
     const cartaoMapa = document.getElementById("cartao-mapa");
-    
+
     document.querySelector(".resultado").style.display = "none";
     clima.style.display = "none";
     cartaoMapa.style.display = "none";
@@ -315,7 +322,7 @@ botao_buscar.addEventListener("click", (evento) => {
                     });
 
                     item.classList.add("selecionada");
-                    
+
                     carregarClima(local);
                 });
             });

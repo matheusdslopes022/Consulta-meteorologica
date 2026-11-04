@@ -1,9 +1,12 @@
+/* RESET */
 
 * {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
 }
+
+/* BODY */
 
 body {
     display: flex;
@@ -133,6 +136,7 @@ form {
     border: 0;
 
     padding-left: 15px;
+    outline: none;
 }
 
 #button {
@@ -190,6 +194,9 @@ form {
 
     border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 10px;
+    background: transparent;
+    color: white;
+    cursor: pointer;
 }
 
 /* RESULTADOS */
@@ -226,13 +233,12 @@ form {
     border-radius: 12px;
 
     color: white;
+    cursor: pointer;
 
     transition: background-color 0.3s ease;
 }
 
 .item-cidade:hover {
-    transition: 0.3s;
-
     color: rgb(253, 230, 138);
     border: 1px solid rgb(253, 230, 138);
 }
@@ -263,6 +269,7 @@ form {
     display: flex;
     gap: 20px;
     padding: 10px;
+    align-items: center;
 }
 
 .informacoes h1 {
@@ -278,35 +285,50 @@ form {
     line-height: 1;
 }
 
-.detalhe{
-    background-color: gray;
-    border-radius: 20px;
-    padding: 20px;
-    margin: 10px;
-}
-
-.detalhe p{
-    
-}
-
-.clima-principal{
-    margin-right: 100px;
-}
+/* DETALHES CLIMA (ATUALIZADO COM VIDRO FOSCO E ALINHAMENTO) */
 
 .detalhes-clima {
     display: flex;
     gap: 15px;
-    align-items: baseline;
+    align-items: center;
+}
+
+.detalhe {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 16px;
+    padding: 20px 30px;
+    margin: 10px;
+    flex: 1;
+    min-height: 85px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: background 0.3s ease;
+}
+
+.detalhe:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.clima-principal {
+    margin-right: 50px;
 }
 
 .detalhe p {
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 1px;
     opacity: 0.75;
+    margin-bottom: 4px;
 }
 
 .detalhe h2 {
-    font-weight: 400;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.2;
 }
 
 /* MAPA */
@@ -384,7 +406,6 @@ form {
 
 .credito-mapa {
     margin: 10px 0 0;
-
     font-size: 12px;
     color: rgba(255, 255, 255, 0.7);
 }
@@ -414,4 +435,149 @@ form {
 .botao-favoritos:hover {
     color: rgb(253, 230, 138);
     border-color: rgb(253, 230, 138);
+}
+
+.link{
+    margin: 10px 0 0;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 20px;
+}
+
+.link a{
+    color: rgb(253, 230, 138);
+}
+
+.fav{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ========================================== */
+/* RESPONSIVIDADE CORRIGIDA                   */
+/* ========================================== */
+
+@media (max-width: 1100px) {
+    body {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .topo {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .campo-pesquisa {
+        width: 100% !important;
+        margin-left: 0 !important;
+        height: auto;
+    }
+
+    .favoritos-secao {
+        width: 100% !important;
+        margin-right: 0 !important;
+        margin-top: 20px;
+    }
+
+    .resultado,
+    #clima,
+    #cartao-mapa {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .header {
+        position: relative;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+    .lado-direito {
+        position: static;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .campo-pesquisa {
+        width: 100% !important;
+        height: auto;
+        padding: 15px;
+    }
+
+    #cidade {
+        width: 100% !important;
+        margin-bottom: 10px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+    }
+
+    #button {
+        width: 100%;
+        margin-left: 0 !important;
+    }
+
+    /* CENTRALIZA TUDO NO CARD DE CLIMA NO MOBILE */
+    .teste {
+        flex-direction: column;
+        align-items: center; /* Centraliza horizontalmente */
+        text-align: center;  /* Centraliza os textos */
+        gap: 15px;
+    }
+
+    .clima-principal {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Alinha o ícone e as infos no centro */
+        margin-right: 0;
+    }
+
+    .informacoes h1 {
+        font-size: 48px;
+    }
+
+    /* Grade perfeita de 3 colunas no mobile para os detalhes */
+    .detalhes-clima {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        width: 100%;
+    }
+
+    .detalhe {
+        margin: 0;
+        width: 100%;
+        padding: 10px 4px;
+        min-height: 80px;
+    }
+
+    .detalhe p {
+        font-size: 9px;
+    }
+
+    .detalhe h2 {
+        font-size: 14px;
+    }
+
+    /* Botão de favoritos centralizado no mobile */
+    .botao-favoritos {
+        align-self: center;
+        width: 100%;
+    }
+
+    #mapa {
+        height: 300px;
+    }
 }
