@@ -519,6 +519,10 @@ form {
         padding: 15px;
     }
 
+    .campo-pesquisa p{
+        padding-bottom: 10px;
+    }
+
     #cidade {
         width: 100% !important;
         margin-bottom: 10px;
