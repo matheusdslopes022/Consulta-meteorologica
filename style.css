@@ -473,6 +473,11 @@ form {
         width: 100% !important;
         margin-left: 0 !important;
         height: auto;
+        
+    }
+
+    .campo-pesquisa p{
+        padding-bottom: 10px;
     }
 
     .favoritos-secao {
